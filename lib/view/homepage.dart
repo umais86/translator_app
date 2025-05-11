@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:translator_app/data/models/translation_provider.dart';
 import 'package:translator_app/view/components/bottom_action_bar.dart';
-
 import 'package:translator_app/view/components/language_selector.dart';
 import 'package:translator_app/view/components/text_input_area.dart';
 import 'package:translator_app/view/components/translation_button.dart';

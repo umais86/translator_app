@@ -5,6 +5,8 @@ import 'package:translator_app/data/models/translation_provider.dart';
 import 'package:translator_app/view/components/language_selector.dart';
 
 class FileTranslationScreen extends StatelessWidget {
+  const FileTranslationScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<FileTranslationProvider>(context);

@@ -6,8 +6,7 @@ import 'package:translator_app/data/models/speech.dart';
 // import 'package:firebase_core/firebase_core.dart'; // ✅ Add this
 import 'package:translator_app/data/models/translation_provider.dart';
 import 'package:translator_app/data/models/translation_repository.dart';
-import 'package:translator_app/view/conversation.dart';
-import 'package:translator_app/view/file_translate.dart';
+import 'package:translator_app/view/components/privacy_policy_screen.dart';
 import 'package:translator_app/view/homepage.dart';
 import 'package:translator_app/view/splash_screen.dart';
 
@@ -58,7 +57,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         debugShowCheckedModeBanner: false,
-        home: Homepage(),
+        home: SplashScreen(),
       ),
     );
   }

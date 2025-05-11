@@ -28,7 +28,7 @@ class MoreFunScreen extends StatelessWidget {
               // Navigate to Settings screen or perform action
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const Settings()),
+                MaterialPageRoute(builder: (context) => const SettingsScreen()),
               );
             },
           ),
