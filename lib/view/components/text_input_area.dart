@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:translator_app/data/models/translation_provider.dart';
 import 'package:translator_app/viewmodel/translation_viewmodel.dart';
-import 'package:translator_app/view/components/input_area.dart';
 
 class TextInputArea extends StatelessWidget {
   const TextInputArea({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<TranslationViewModel>(context);
+    final provider = Provider.of<TranslationViewModel>(context, listen: true);
     final mediaQuery = MediaQuery.of(context);
 
     return Padding(
@@ -52,7 +52,18 @@ class TextInputArea extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
             ),
             child: TextField(
-              onChanged: (text) => provider.setSourceText(text),
+              onChanged: (text) {
+                var translatinProvider = context.read<TranslationProvider>();
+                provider.setLanguages(
+                  translatinProvider.sourceLanguage,
+                  translatinProvider.targetLanguage,
+                );
+                provider.setSourceText(text);
+                provider.translateText();
+              },
+              onSubmitted: (value) {
+                provider.translateText();
+              },
               maxLines: null,
               expands: true,
               decoration: const InputDecoration(
@@ -60,38 +71,8 @@ class TextInputArea extends StatelessWidget {
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.all(16),
               ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const InputArea()),
-                );
-              },
             ),
           ),
-
-          const SizedBox(height: 16),
-
-          // Show Translated Text
-          if (provider.translatedText.isNotEmpty) ...[
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.blue[50],
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                provider.translatedText,
-                style: const TextStyle(fontSize: 16),
-              ),
-            ),
-            const SizedBox(height: 16),
-          ],
-
-          // Show Loading Indicator
-          if (provider.isLoading) ...[
-            const Center(child: CircularProgressIndicator()),
-          ],
         ],
       ),
     );

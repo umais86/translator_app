@@ -48,6 +48,7 @@ dependencies:
   logger: ^2.0.2
   firebase_core: ^3.13.0
   firebase_auth: ^5.5.3
+  intl: 
 
 dev_dependencies:
   flutter_test:
@@ -75,6 +76,29 @@ flutter:
   assets:
     - assets/images/splash_screen.png
     - assets/images/c.png
+    - assets/flags/af.png
+    - assets/flags/bd.png
+    - assets/flags/cn.png
+    - assets/flags/de.png
+    - assets/flags/es.png
+    - assets/flags/fr.png
+    - assets/flags/et.png
+    - assets/flags/id.png
+    - assets/flags/il.png
+    - assets/flags/in.png
+    - assets/flags/ir.png 
+    - assets/flags/it.png
+    - assets/flags/jp.png
+    - assets/flags/ke.png
+    - assets/flags/kr.png
+    - assets/flags/my.png
+    - assets/flags/pk.png
+    - assets/flags/pt.png
+    - assets/flags/sa.png 
+    - assets/flags/th.png
+    - assets/flags/tr.png
+    - assets/flags/us.png 
+    - assets/flags/vn.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

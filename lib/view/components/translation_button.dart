@@ -1,33 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:translator_app/data/models/translation_provider.dart';
+import 'package:translator_app/viewmodel/translation_viewmodel.dart';
 
 class MicrophoneButton extends StatelessWidget {
   const MicrophoneButton({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 70,
-      height: 70,
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.blue.withValues(alpha: 0.3),
-            spreadRadius: 2,
-            blurRadius: 8,
-            offset: const Offset(0, 3),
+    final speechProvider = Provider.of<TranslationViewModel>(
+      context,
+      listen: false,
+    );
+    return GestureDetector(
+      onTap: () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Listening...'),
+            duration: Duration(seconds: 2),
           ),
-        ],
-      ),
-      child: IconButton(
-        icon: const Icon(Icons.mic, color: Colors.white, size: 32),
-        onPressed: () {
-          // Would implement speech-to-text functionality
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Voice recognition activated')),
-          );
-        },
+        );
+        var translatinProvider = context.read<TranslationProvider>();
+        speechProvider.setLanguages(
+          translatinProvider.sourceLanguage,
+          translatinProvider.targetLanguage,
+        );
+        speechProvider.isListening
+            ? speechProvider.stopListening()
+            : speechProvider.startListening();
+      },
+      child: CircleAvatar(
+        radius: 35,
+        backgroundColor: Colors.blue,
+        child: const Icon(Icons.mic, color: Colors.white, size: 32),
       ),
     );
   }

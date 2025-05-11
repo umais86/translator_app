@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:translator_app/view/dictionary.dart';
 import 'package:translator_app/view/file_translate.dart';
-
+import 'package:translator_app/view/homepage.dart';
 import 'settings.dart';
 
 class MoreFunScreen extends StatelessWidget {
@@ -14,7 +14,10 @@ class MoreFunScreen extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Homepage()),
+            );
           },
         ),
         title: Text('More Fun'),
