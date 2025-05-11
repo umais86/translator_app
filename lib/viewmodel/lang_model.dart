@@ -8,4 +8,5 @@ class LanguageModel {
     required this.name,
     required this.flagAsset,
   });
+  String get flagPath => 'assets/flags/$flagAsset.png';
 }

@@ -1,52 +1,55 @@
 import 'package:flutter/material.dart';
-import 'package:translator_app/view/components/language_selector.dart';
+import 'package:translator_app/view/camera.dart';
 import 'package:translator_app/view/conversation.dart';
 import 'package:translator_app/view/more_fun.dart';
 
 class BottomActionBar1 extends StatelessWidget {
-  const BottomActionBar1(LanguageSelector languageSelector, {super.key});
+  const BottomActionBar1({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          _buildActionButton(
-            context,
-            icon: Icons.group,
-            label: 'Conversation',
-            isActive: false,
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const Conversation()),
-              );
-            },
-          ),
-          _buildActionButton(
-            context,
-            icon: Icons.camera_alt,
-            label: 'Camera',
-            isActive: false,
-            onTap: () {},
-          ),
-          _buildActionButton(
-            context,
-            icon: Icons.apps,
-            label: 'More Fun',
-            isActive: true,
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const MoreFunScreen()),
-              );
-            },
-          ),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        _buildActionButton(
+          context,
+          icon: Icons.group,
+          label: 'Conversation',
+          isActive: false,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ConversationScreen(),
+              ),
+            );
+          },
+        ),
+        _buildActionButton(
+          context,
+          icon: Icons.camera_alt,
+          label: 'Camera',
+          isActive: false,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Camera()),
+            );
+          },
+        ),
+        _buildActionButton(
+          context,
+          icon: Icons.apps,
+          label: 'More Fun',
+          isActive: true,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MoreFunScreen()),
+            );
+          },
+        ),
+      ],
     );
   }
 
@@ -63,8 +66,8 @@ class BottomActionBar1 extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            width: 70,
-            height: 70,
+            width: 40,
+            height: 40,
             decoration: BoxDecoration(
               color: isActive ? Colors.blue : Colors.grey[200],
               shape: BoxShape.circle,

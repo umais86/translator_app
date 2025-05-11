@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:translator_app/data/models/translation_repository.dart';
 import 'package:translator_app/viewmodel/lang_model.dart';
@@ -57,7 +59,11 @@ class TranslationViewModel extends ChangeNotifier {
   }
 
   Future<void> translateText() async {
-    if (_sourceText.isEmpty || _sourceLanguage == null || _targetLanguage == null) return;
+    if (_sourceText.isEmpty ||
+        _sourceLanguage == null ||
+        _targetLanguage == null) {
+      return;
+    }
 
     _isLoading = true;
     notifyListeners();
@@ -73,6 +79,7 @@ class TranslationViewModel extends ChangeNotifier {
     }
 
     _isLoading = false;
+    log(_translatedText);
     notifyListeners();
   }
 

@@ -1,7 +1,9 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
-
 import 'package:translator_app/view/more_fun.dart';
 
 class DictionaryScreen extends StatefulWidget {
@@ -36,14 +38,25 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
     });
 
     try {
-      final response = await http.get(
-        Uri.parse(
-          'https://api.dictionaryapi.dev/api/v2/entries/en/${word.toLowerCase()}',
-        ),
-      );
+      print('Sending request to API...');
+      final response = await http
+          .get(
+            Uri.parse(
+              'https://api.dictionaryapi.dev/api/v2/entries/en/${word.toLowerCase()}',
+            ),
+            headers: {
+              'Content-Type': 'application/json',
+              'User-Agent': 'FlutterApp/1.0',
+            },
+          )
+          .timeout(const Duration(seconds: 10));
+
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
 
       if (response.statusCode == 200) {
         final List<dynamic> data = jsonDecode(response.body);
+
         if (data.isNotEmpty &&
             data[0]['meanings'] != null &&
             data[0]['meanings'][0]['definitions'] != null &&
@@ -85,9 +98,23 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
           _isLoading = false;
         });
       }
-    } catch (e) {
+    } on SocketException catch (e) {
+      print('SocketException: ${e.message}');
       setState(() {
-        _errorMessage = 'An error occurred. Please try again later.';
+        _errorMessage =
+            'Network error: ${e.message}. Please check your internet connection.';
+        _isLoading = false;
+      });
+    } on TimeoutException {
+      print('TimeoutException: Request took too long.');
+      setState(() {
+        _errorMessage = 'Request timed out. Please try again.';
+        _isLoading = false;
+      });
+    } catch (e) {
+      print('Unexpected error: $e');
+      setState(() {
+        _errorMessage = 'Unexpected error: ${e.toString()}';
         _isLoading = false;
       });
     }
@@ -119,7 +146,6 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
       ),
       body: Column(
         children: [
-          // Search Field
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Container(
@@ -128,7 +154,7 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withValues(alpha: 0.2),
+                    color: Colors.grey.withOpacity(0.2),
                     spreadRadius: 2,
                     blurRadius: 5,
                     offset: const Offset(0, 3),
@@ -162,8 +188,6 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
               ),
             ),
           ),
-
-          // Main Content Area
           Expanded(
             child: Center(
               child:
@@ -199,7 +223,6 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
     );
   }
 
-  // Reusable Widget: Word Details
   Widget _buildWordDetails() {
     return SizedBox(
       width: double.infinity,
@@ -212,7 +235,7 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withValues(alpha: 0.2),
+              color: Colors.grey.withOpacity(0.2),
               spreadRadius: 2,
               blurRadius: 5,
               offset: const Offset(0, 3),
@@ -238,7 +261,6 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
     );
   }
 
-  // Reusable Widget: Detail Row
   Widget _buildDetailRow(String label, String? value, {bool isItalic = false}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
@@ -266,7 +288,6 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
     );
   }
 
-  // Reusable Widget: Example Section
   Widget _buildExampleSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -295,7 +316,6 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
     );
   }
 
-  // Reusable Widget: List Section (for Synonyms and Antonyms)
   Widget _buildListSection(String label, List<String> items) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
