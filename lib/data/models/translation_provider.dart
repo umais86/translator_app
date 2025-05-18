@@ -4,7 +4,7 @@ import 'package:translator_app/viewmodel/lang_model.dart';
 class TranslationProvider extends ChangeNotifier {
   List<LanguageModel> languages = [
     LanguageModel(code: 'en', name: 'English', flagAsset: 'us'),
-    LanguageModel(code: 'ur', name: 'Urdu (Pakistan)', flagAsset: 'pk'),
+    LanguageModel(code: 'ur', name: 'Urdu ', flagAsset: 'pk'),
     LanguageModel(code: 'hi', name: 'Hindi', flagAsset: 'in'),
     LanguageModel(code: 'fr', name: 'French', flagAsset: 'fr'),
     LanguageModel(code: 'es', name: 'Spanish', flagAsset: 'es'),

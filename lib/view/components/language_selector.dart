@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:translator_app/data/models/translation_provider.dart';
 
 class LanguageSelector extends StatelessWidget {
-  const LanguageSelector({super.key});
+  final void Function()? swapClick;
+  const LanguageSelector({super.key, this.swapClick});
 
   @override
   Widget build(BuildContext context) {
@@ -11,6 +12,7 @@ class LanguageSelector extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
+      width: 400,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -22,8 +24,8 @@ class LanguageSelector extends StatelessWidget {
               },
               child: Container(
                 padding: const EdgeInsets.symmetric(
-                  vertical: 12,
-                  horizontal: 16,
+                  vertical: 10,
+                  horizontal: 14,
                 ),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey[300]!),
@@ -51,7 +53,12 @@ class LanguageSelector extends StatelessWidget {
           // Swap button
           IconButton(
             icon: const Icon(Icons.swap_horiz),
-            onPressed: provider.swapLanguages,
+            onPressed: () {
+              if (swapClick != null) {
+                swapClick!();
+              }
+              provider.swapLanguages();
+            },
           ),
 
           // Target language selector
@@ -78,9 +85,11 @@ class LanguageSelector extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    Text(
-                      provider.targetLanguage.name,
-                      style: const TextStyle(fontSize: 16),
+                    Expanded(
+                      child: Text(
+                        provider.targetLanguage.name,
+                        style: const TextStyle(fontSize: 16),
+                      ),
                     ),
                   ],
                 ),
