@@ -227,6 +227,7 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
   Widget _buildWordDetails() {
     return SizedBox(
       width: double.infinity,
+
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 500),
         curve: Curves.easeInOut,

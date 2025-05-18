@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:translator_app/view/components/feedback_screen.dart';
 import 'package:translator_app/view/components/language_selector.dart';
 import 'package:translator_app/view/components/privacy_policy_screen.dart';
+import 'package:translator_app/view/more_fun.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -9,11 +11,20 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const BackButton(),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MoreFunScreen()),
+            );
+          },
+        ),
         title: const Text(
           'Settings',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
         ),
+
         centerTitle: false,
       ),
       body: ListView(
@@ -48,7 +59,10 @@ class SettingsScreen extends StatelessWidget {
             title: 'Feedback',
             subtitle: 'Add your suggestions',
             onTap: () {
-              // Navigate to feedback screen
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const FeedbackPage()),
+              );
             },
           ),
           _buildTile(

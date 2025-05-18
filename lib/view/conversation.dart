@@ -33,13 +33,6 @@ class ConversationScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Text(
-                        //   DateFormat(
-                        //     "dd MMM yyyy, hh:mm a",
-                        //   ).format(msg.timestamp),
-                        //   style: TextStyle(color: Colors.grey),
-                        // ),
-                        const SizedBox(height: 8),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -125,15 +118,7 @@ class _MicrophoneInputArea extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 10),
-        // ElevatedButton(
-        //   onPressed: () async {
-        //     await provider.stopListening();
-        //     await provider.translateAndAdd();
-        //   },
-        //   child: Text("Translate"),
-        // ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 20),
       ],
     );
   }

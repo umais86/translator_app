@@ -58,10 +58,10 @@ class _HomepageState extends State<Homepage> {
 
             // Language selector
             const LanguageSelector(),
-            const SizedBox(height: 15),
+            const SizedBox(height: 12.5),
             // Bottom navigation
             Align(
-              alignment: Alignment.bottomCenter,
+              // alignment: Alignment.topCenter,
               child: const BottomActionBar1(),
             ),
           ],

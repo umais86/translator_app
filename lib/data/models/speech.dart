@@ -42,7 +42,7 @@ class SpeechProvider extends ChangeNotifier {
 
   Future<void> translate() async {
     if (_spokenText.isNotEmpty) {
-      var translatedText = await translationAPI
+      await translationAPI
           .translateText(
             text: _spokenText,
             fromLang: translationProvider.sourceLanguage.code,
